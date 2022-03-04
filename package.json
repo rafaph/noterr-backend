@@ -50,5 +50,9 @@
   },
   "dependencies": {
     "tsconfig-paths": "^3.13.0"
+  },
+  "engines": {
+    "node": "16.x",
+    "npm": "8.x"
   }
 }
