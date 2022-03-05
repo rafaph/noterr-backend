@@ -30,6 +30,7 @@ rules:
   "semi": off
   "@typescript-eslint/semi": error
   "import/no-unresolved": error
+  quotes: [ error, double ]
   "import/order":
     - error
     - alphabetize:

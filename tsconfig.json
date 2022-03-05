@@ -19,6 +19,7 @@
       "ESNext"
     ],
     "module": "commonjs",
+    "moduleResolution": "Node",
     "noImplicitAny": true,
     "noImplicitReturns": true,
     "noUnusedLocals": true,
