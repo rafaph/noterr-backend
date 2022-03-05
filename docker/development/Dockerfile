@@ -1,4 +1,4 @@
-FROM node:lts-alpine
+FROM node:16-alpine
 
 RUN apk add --update --no-cache ruby python3 make gcc g++ shadow && \
     ln -sf python3 /usr/bin/python
