@@ -1,4 +1,4 @@
-# Notes Backend App
+# Noterr Backend
 
 ## Usage
 
