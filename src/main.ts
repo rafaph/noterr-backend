@@ -1,9 +1,13 @@
-import { NestFactory } from "@nestjs/core";
-import { AppModule } from "@app/app/app.module";
+/* istanbul ignore file */
+import { AppFactory } from "@app/app-factory";
+import { OptionalEnv } from "@app/settings/environment-variables";
 
 async function bootstrap(): Promise<void> {
-  const app = await NestFactory.create(AppModule);
-  await app.listen(3000);
+  const app = await AppFactory.create();
+  await app.listen(process.env[OptionalEnv.NOTERR_LISTEN_PORT] ?? 3000);
 }
 
-bootstrap();
+bootstrap().finally(() => {
+  // eslint-disable-next-line no-console
+  console.log("Server finished.");
+});
