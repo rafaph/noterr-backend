@@ -10,9 +10,10 @@
     "pretest:cov": "rimraf coverage .nyc_output",
     "test:cov": "nyc npm run test",
     "prelint": "ls-lint",
-    "lint": "eslint \"{src,test}/**/*.ts\"",
-    "lint:fix": "npm run lint -- --fix",
-    "format": "prettier --write .",
+    "lint": "prettier --loglevel warn --check .",
+    "postlint": "eslint \"{src,test}/**/*.ts\"",
+    "lint:fix": "npm run postlint -- --fix",
+    "postlint:fix": "prettier --write .",
     "prebuild": "rimraf dist",
     "build": "nest build",
     "prepare": "husky install"
