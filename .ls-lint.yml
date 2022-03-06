@@ -17,3 +17,4 @@ ignore:
   - docker
   - dist
   - "@types"
+  - tsconfig.build.json
