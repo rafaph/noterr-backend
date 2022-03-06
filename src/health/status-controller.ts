@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import { Controller, Get } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
 import { HealthCheck, HealthCheckService, HealthCheckResult } from "@nestjs/terminus";

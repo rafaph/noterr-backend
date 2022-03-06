@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import { INestApplication } from "@nestjs/common";
 import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
 import * as swagger from "swagger-ui-express";
