@@ -8,3 +8,4 @@ require:
   - tsconfig-paths/register
   - chai/register-expect.js
   - test/setup.ts
+recursive: true

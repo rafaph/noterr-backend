@@ -1,1 +1,4 @@
-reporter: [ lcov, text ]
+extends: "@istanbuljs/nyc-config-typescript"
+all: true
+include: [ "src/**/*.ts" ]
+reporter: [ "text", "html" ]
