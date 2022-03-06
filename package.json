@@ -12,6 +12,7 @@
     "prelint": "ls-lint",
     "lint": "eslint \"{src,test}/**/*.ts\"",
     "lint:fix": "npm run lint -- --fix",
+    "format": "prettier --write .",
     "prebuild": "rimraf dist",
     "build": "nest build",
     "prepare": "husky install"
@@ -67,5 +68,38 @@
   "engines": {
     "node": "16.x",
     "npm": "8.x"
+  },
+  "mocha": {
+    "timeout": 15000,
+    "extension": [
+      "ts"
+    ],
+    "spec": [
+      "test/**/*.spec.ts"
+    ],
+    "require": [
+      "ts-node/register",
+      "tsconfig-paths/register",
+      "chai/register-expect.js",
+      "test/setup.ts"
+    ],
+    "bail": true
+  },
+  "nyc": {
+    "extends": "@istanbuljs/nyc-config-typescript",
+    "all": true,
+    "include": [
+      "src/**/*.ts"
+    ],
+    "reporter": [
+      "text",
+      "html"
+    ]
+  },
+  "prettier": {
+    "printWidth": 120,
+    "tabWidth": 2,
+    "singleQuote": false,
+    "trailingComma": "all"
   }
 }

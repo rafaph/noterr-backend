@@ -1,7 +1,7 @@
 /* istanbul ignore file */
 import { INestApplication } from "@nestjs/common";
 import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
-import * as swagger from "swagger-ui-express";
+import { setup, serve } from "swagger-ui-express";
 
 export function setupSwagger(app: INestApplication): void {
   const config = new DocumentBuilder()
@@ -9,12 +9,11 @@ export function setupSwagger(app: INestApplication): void {
     .setDescription("Noterr Backend Documentation")
     .setVersion("1.0")
     .build();
-  const document = SwaggerModule.createDocument(app, config);
+  const swaggerDoc = SwaggerModule.createDocument(app, config);
+  const setupHandler = setup(swaggerDoc, {
+    customCss: ".swagger-ui .topbar { display: none; }",
+    customSiteTitle: config.info.description,
+  });
 
-  const swaggerHtml = swagger.generateHTML(document);
-  const httpAdapter = app.getHttpAdapter();
-
-  app.use("/docs", swagger.serve);
-  httpAdapter.get("/docs", (_, response) => response.send(swaggerHtml));
-  httpAdapter.get("/docs-json", (_, response) => response.json(document));
+  app.use("/api-docs", serve, setupHandler);
 }

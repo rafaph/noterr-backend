@@ -3,3 +3,6 @@
 node_modules
 docker
 @types
+coverage
+.nyc_output
+dist

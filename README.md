@@ -2,7 +2,7 @@
 
 ## Usage
 
-1) Start container:
+1. Start container:
 
 ```
 make up
@@ -15,7 +15,7 @@ make shell
 npm i
 ```
 
-3) Run a any desired npm script:
+3. Run a any desired npm script:
 
 ```
 npm run start
@@ -30,7 +30,7 @@ npm run build:watch
 
 Obs: lint:fix also formats your code using prettier.
 
-4) Remove container:
+4. Remove container:
 
 ```
 make down
