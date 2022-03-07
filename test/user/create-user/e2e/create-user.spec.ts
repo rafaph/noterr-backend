@@ -75,9 +75,7 @@ parallel("CreateUserController", () => {
       await request(app.getHttpServer())
         .post("/api/v1/users")
         .set("accept", "application/json")
-        .send(
-          makeBody(),
-        )
+        .send(makeBody())
         .expect(HttpStatus.UNPROCESSABLE_ENTITY);
     });
   });

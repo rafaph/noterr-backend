@@ -18,11 +18,13 @@ describe("MemoryCreateUserRepository", () => {
   });
 
   it("should check if user exists", async () => {
-    const users: CreateUserRepositoryInput[] = [{
-      id: new UUID(faker.datatype.uuid()),
-      email: faker.internet.email(),
-      password: faker.internet.password(),
-    }];
+    const users: CreateUserRepositoryInput[] = [
+      {
+        id: new UUID(faker.datatype.uuid()),
+        email: faker.internet.email(),
+        password: faker.internet.password(),
+      },
+    ];
     const repository = new MemoryCreateUserRepository(users);
     const exists = await repository.exists(users[0].email);
 

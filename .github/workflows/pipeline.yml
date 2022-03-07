@@ -26,6 +26,7 @@ jobs:
         run: |
           if [ ! -d node_modules ]; then
             npm ci --ignore-scripts
+            npx node-pre-gyp rebuild -C ./node_modules/argon2
           fi
           npx patch-package
       - name: Lint
@@ -54,6 +55,7 @@ jobs:
         run: |
           if [ ! -d node_modules ]; then
             npm ci --ignore-scripts
+            npx node-pre-gyp rebuild -C ./node_modules/argon2
           fi
           npx patch-package
       - name: Test
