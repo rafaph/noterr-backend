@@ -8,6 +8,7 @@
     "declaration": true,
     "declarationMap": true,
     "emitDecoratorMetadata": true,
+    "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "incremental": false,
