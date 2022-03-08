@@ -1,4 +1,3 @@
-/* eslint @typescript-eslint/no-explicit-any: "off" */
 import { INestApplication } from "@nestjs/common";
 import { Test, TestingModuleBuilder } from "@nestjs/testing";
 import { AppFactory } from "@app/app-factory";
