@@ -20,7 +20,7 @@ const makeBody = (body: Partial<Body> = {}): Body => {
 };
 
 parallel("CreateUserController", () => {
-  it("POST /api/v1/users - 201 CREATED", async () => {
+  it("POST /api/v1/users 201 CREATED", async () => {
     await new TestApplication().run(async (app) => {
       await request(app.getHttpServer())
         .post("/api/v1/users")
