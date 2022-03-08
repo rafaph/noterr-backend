@@ -1,39 +1,55 @@
 /* eslint @typescript-eslint/no-explicit-any: "off" */
 import { INestApplication } from "@nestjs/common";
-import { Test, TestingModule } from "@nestjs/testing";
+import { Test, TestingModuleBuilder } from "@nestjs/testing";
 import { AppFactory } from "@app/app-factory";
 import { AppModule } from "@app/app-module";
+import { PrismaService } from "@app/shared/application/prisma-service";
+import { TestDatabase } from "@test/helpers/test-database";
 
 export class TestApplication {
   private app!: INestApplication;
-  private moduleFixture!: TestingModule;
+  private moduleBuilder!: TestingModuleBuilder;
+  private testDatabase = new TestDatabase();
 
-  public constructor(moduleFixture?: TestingModule) {
+  public constructor(moduleFixture?: TestingModuleBuilder) {
     if (moduleFixture) {
-      this.moduleFixture = moduleFixture;
+      this.moduleBuilder = moduleFixture;
     }
   }
 
-  private async init(): Promise<void> {
-    if (!this.moduleFixture) {
-      this.moduleFixture = await Test.createTestingModule({
+  private async up(): Promise<void> {
+    if (!this.moduleBuilder) {
+      this.moduleBuilder = await Test.createTestingModule({
         imports: [AppModule],
-      }).compile();
+      });
     }
 
-    this.app = this.moduleFixture.createNestApplication();
+    await this.testDatabase.up();
 
-    AppFactory.setup(this.app);
+    const testingModule = await this.moduleBuilder
+      .overrideProvider(PrismaService)
+      .useValue(this.testDatabase.createPrisma())
+      .compile();
+
+    this.app = testingModule.createNestApplication();
+
+    await AppFactory.setup(this.app);
 
     await this.app.init();
   }
 
+  private async down(): Promise<void> {
+    await this.app.get(PrismaService).$disconnect();
+    await this.app.close();
+    await this.testDatabase.down();
+  }
+
   public async run(callback: (app: INestApplication) => Promise<void>): Promise<void> {
-    await this.init();
+    await this.up();
     try {
       await callback(this.app);
     } finally {
-      await this.app.close();
+      await this.down();
     }
   }
 }

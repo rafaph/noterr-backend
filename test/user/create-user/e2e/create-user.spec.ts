@@ -1,13 +1,10 @@
 import { HttpStatus } from "@nestjs/common";
-import { Test } from "@nestjs/testing";
 import faker from "faker";
 import parallel from "mocha.parallel";
-import sinon from "sinon";
 import request from "supertest";
-import { AppModule } from "@app/app-module";
 import { Interface } from "@app/lib/typescript/interface";
+import { PrismaService } from "@app/shared/application/prisma-service";
 import { CreateUserControllerInput } from "@app/user/create-user/application/create-user-controller-input";
-import { CreateUserRepository } from "@app/user/create-user/domain/create-user-repository";
 import { TestApplication } from "@test/helpers/test-application";
 
 type Body = Interface<CreateUserControllerInput>;
@@ -62,20 +59,22 @@ parallel("CreateUserController", () => {
   });
 
   it("POST /api/v1/users 422 UNPROCESSABLE_ENTITY if email already is in use", async () => {
-    const moduleFixture = await Test.createTestingModule({
-      imports: [AppModule],
-    })
-      .overrideProvider(CreateUserRepository)
-      .useValue({
-        create: sinon.stub().resolves(),
-        exists: sinon.stub().resolves(true),
-      })
-      .compile();
-    await new TestApplication(moduleFixture).run(async (app) => {
+    await new TestApplication().run(async (app) => {
+      const body = makeBody();
+      const prisma = app.get(PrismaService);
+      const data = { ...body };
+      delete (data as Partial<Body>).passwordConfirmation;
+      await prisma.user.create({
+        data: {
+          id: faker.datatype.uuid(),
+          ...data,
+        },
+      });
+
       await request(app.getHttpServer())
         .post("/api/v1/users")
         .set("accept", "application/json")
-        .send(makeBody())
+        .send(body)
         .expect(HttpStatus.UNPROCESSABLE_ENTITY);
     });
   });

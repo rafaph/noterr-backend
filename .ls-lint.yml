@@ -11,10 +11,11 @@ ignore:
   - .github
   - .idea
   - .ls-lint.yml
+  - tsconfig.build.json
   - .nyc_output
   - .husky
   - node_modules
   - docker
   - dist
   - "@types"
-  - tsconfig.build.json
+  - prisma
