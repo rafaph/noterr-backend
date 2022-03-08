@@ -11,9 +11,9 @@ export class TestApplication {
   private moduleBuilder!: TestingModuleBuilder;
   private testDatabase = new TestDatabase();
 
-  public constructor(moduleFixture?: TestingModuleBuilder) {
-    if (moduleFixture) {
-      this.moduleBuilder = moduleFixture;
+  public constructor(moduleBuilder?: TestingModuleBuilder) {
+    if (moduleBuilder) {
+      this.moduleBuilder = moduleBuilder;
     }
   }
 
