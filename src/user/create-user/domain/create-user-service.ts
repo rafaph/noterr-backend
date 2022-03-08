@@ -1,8 +1,8 @@
 import { Injectable } from "@nestjs/common";
-import { PasswordHasher } from "@app/common/domain/password-hasher";
 import { Either, left, right } from "@app/lib/either";
 import { DefaultError } from "@app/lib/error/default-error";
 import { UUID } from "@app/lib/uuid";
+import { PasswordHasher } from "@app/user/common/domain/password-hasher";
 import { CreateUserRepository } from "@app/user/create-user/domain/create-user-repository";
 import { CreateUserServiceInput } from "@app/user/create-user/domain/create-user-service-input";
 

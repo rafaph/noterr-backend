@@ -1,7 +1,7 @@
 import faker from "faker";
 import sinon from "sinon";
-import { PasswordHasher } from "@app/common/domain/password-hasher";
 import { UUID } from "@app/lib/uuid";
+import { PasswordHasher } from "@app/user/common/domain/password-hasher";
 import { CreateUserRepository } from "@app/user/create-user/domain/create-user-repository";
 import { CreateUserService } from "@app/user/create-user/domain/create-user-service";
 import { CreateUserServiceInput } from "@app/user/create-user/domain/create-user-service-input";
