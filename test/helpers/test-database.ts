@@ -66,6 +66,7 @@ export class TestDatabase {
           url: this.databaseUrl,
         },
       },
+      log: ["error"],
     });
   }
 
