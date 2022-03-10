@@ -1,6 +1,7 @@
 import { Module } from "@nestjs/common";
 import { JwtModule } from "@nestjs/jwt";
 import { CommonModule } from "@app/user/common/common-module";
+import { JwtModuleInitializer } from "@app/user/common/jwt-module-initializer";
 import { JwtTokenService } from "@app/user/login/application/jwt-token-service";
 import { LoginController } from "@app/user/login/application/login-controller";
 import { PrismaLoginRepository } from "@app/user/login/application/prisma-login-repository";
@@ -23,9 +24,8 @@ import { TokenService } from "@app/user/login/domain/token-service";
   controllers: [LoginController],
   imports: [
     CommonModule,
-    JwtModule.register({
-      secret: "secret",
-      signOptions: { expiresIn: "60s" },
+    JwtModule.registerAsync({
+      useClass: JwtModuleInitializer,
     }),
   ],
 })
