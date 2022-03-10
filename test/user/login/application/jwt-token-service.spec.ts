@@ -1,8 +1,8 @@
 import { JwtService } from "@nestjs/jwt";
 import faker from "faker";
 import sinon from "sinon";
-import { JwtTokenService } from "@app/user/auth/login/application/jwt-token-service";
-import { makeUserEntity } from "@test/builders/make-user-entity";
+import { JwtTokenService } from "@app/user/login/application/jwt-token-service";
+import { makeUserEntity } from "@test/user/common/helpers/factories";
 
 interface Sut {
   readonly jwtService: JwtService;

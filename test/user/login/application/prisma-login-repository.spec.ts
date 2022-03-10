@@ -1,7 +1,7 @@
 import faker from "faker";
 import parallel from "mocha.parallel";
-import { PrismaLoginRepository } from "@app/user/auth/login/application/prisma-login-repository";
-import { UserEntity } from "@app/user/auth/login/domain/user-entity";
+import { UserEntity } from "@app/user/common/domain/user-entity";
+import { PrismaLoginRepository } from "@app/user/login/application/prisma-login-repository";
 import { TestDatabase } from "@test/helpers/test-database";
 
 parallel("PrismaLoginRepository", () => {

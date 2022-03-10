@@ -4,8 +4,8 @@ import parallel from "mocha.parallel";
 import request from "supertest";
 import { Interface } from "@app/lib/typescript/interface";
 import { PrismaService } from "@app/shared/application/prisma-service";
-import { LoginControllerInput } from "@app/user/auth/login/application/ports/login-controller-input";
 import { PasswordHasher } from "@app/user/common/domain/password-hasher";
+import { LoginControllerInput } from "@app/user/login/application/ports/login-controller-input";
 import { TestApplication } from "@test/helpers/test-application";
 
 type Body = Interface<LoginControllerInput>;

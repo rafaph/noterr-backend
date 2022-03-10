@@ -1,10 +1,10 @@
-import { HttpStatus } from "@nestjs/common";
+import { HttpStatus, INestApplication } from "@nestjs/common";
 import faker from "faker";
 import parallel from "mocha.parallel";
 import request from "supertest";
 import { Interface } from "@app/lib/typescript/interface";
 import { PrismaService } from "@app/shared/application/prisma-service";
-import { CreateUserControllerInput } from "@app/user/create-user/application/create-user-controller-input";
+import { CreateUserControllerInput } from "@app/user/create-user/application/ports/create-user-controller-input";
 import { TestApplication } from "@test/helpers/test-application";
 
 type Body = Interface<CreateUserControllerInput>;
@@ -19,46 +19,42 @@ const makeBody = (body: Partial<Body> = {}): Body => {
   };
 };
 
+const endpoint = "/api/v1/users";
+
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+const makeRequest = (app: INestApplication, body: Body) =>
+  request(app.getHttpServer()).post(endpoint).set("accept", "application/json").send(body);
+
 parallel("CreateUserController", () => {
-  it("POST /api/v1/users 201 CREATED", async () => {
+  it(`POST ${endpoint} ${HttpStatus.CREATED} CREATED`, async () => {
     await new TestApplication().run(async (app) => {
-      await request(app.getHttpServer())
-        .post("/api/v1/users")
-        .set("accept", "application/json")
-        .send(makeBody())
-        .expect(HttpStatus.CREATED);
+      await makeRequest(app, makeBody()).expect(HttpStatus.CREATED);
     });
   });
 
-  it("POST /api/v1/users 400 BAD_REQUEST", async () => {
+  it(`POST ${endpoint} ${HttpStatus.BAD_REQUEST} BAD_REQUEST`, async () => {
     await new TestApplication().run(async (app) => {
-      await request(app.getHttpServer())
-        .post("/api/v1/users")
-        .set("accept", "application/json")
-        .send(
-          makeBody({
-            email: faker.internet.domainName(),
-          }),
-        )
-        .expect(HttpStatus.BAD_REQUEST);
+      await makeRequest(
+        app,
+        makeBody({
+          email: faker.internet.domainName(),
+        }),
+      ).expect(HttpStatus.BAD_REQUEST);
     });
   });
 
-  it("POST /api/v1/users 400 BAD_REQUEST if password != passwordConfirmation", async () => {
+  it(`POST ${endpoint} ${HttpStatus.BAD_REQUEST} BAD_REQUEST if password != passwordConfirmation`, async () => {
     await new TestApplication().run(async (app) => {
-      await request(app.getHttpServer())
-        .post("/api/v1/users")
-        .set("accept", "application/json")
-        .send(
-          makeBody({
-            passwordConfirmation: faker.internet.password(),
-          }),
-        )
-        .expect(HttpStatus.BAD_REQUEST);
+      await makeRequest(
+        app,
+        makeBody({
+          passwordConfirmation: faker.internet.password(),
+        }),
+      ).expect(HttpStatus.BAD_REQUEST);
     });
   });
 
-  it("POST /api/v1/users 422 UNPROCESSABLE_ENTITY if email already is in use", async () => {
+  it(`POST ${endpoint} ${HttpStatus.UNPROCESSABLE_ENTITY} UNPROCESSABLE_ENTITY if email already is in use`, async () => {
     await new TestApplication().run(async (app) => {
       const body = makeBody();
       const prisma = app.get(PrismaService);
@@ -71,11 +67,7 @@ parallel("CreateUserController", () => {
         },
       });
 
-      await request(app.getHttpServer())
-        .post("/api/v1/users")
-        .set("accept", "application/json")
-        .send(body)
-        .expect(HttpStatus.UNPROCESSABLE_ENTITY);
+      await makeRequest(app, body).expect(HttpStatus.UNPROCESSABLE_ENTITY);
     });
   });
 });
