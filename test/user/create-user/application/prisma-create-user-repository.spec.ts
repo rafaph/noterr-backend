@@ -5,7 +5,7 @@ import { PrismaCreateUserRepository } from "@app/user/create-user/application/pr
 import { TestDatabase } from "@test/helpers/test-database";
 
 parallel("PrismaCreateUserRepository", () => {
-  it("should add user to in memory array", async () => {
+  it("should add user", async () => {
     await new TestDatabase().run(async (prisma) => {
       const repository = new PrismaCreateUserRepository(prisma);
       const input = {

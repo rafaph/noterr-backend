@@ -1,8 +1,8 @@
 import { Injectable } from "@nestjs/common";
 import { UUID } from "@app/lib/uuid";
 import { PrismaService } from "@app/shared/application/prisma-service";
-import { LoginRepository } from "@app/user/auth/login/domain/login-repository";
-import { UserEntity } from "@app/user/auth/login/domain/user-entity";
+import { UserEntity } from "@app/user/common/domain/user-entity";
+import { LoginRepository } from "@app/user/login/domain/login-repository";
 
 @Injectable()
 export class PrismaLoginRepository implements LoginRepository {

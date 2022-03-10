@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
-import { TokenService } from "@app/user/auth/login/domain/token-service";
-import { UserEntity } from "@app/user/auth/login/domain/user-entity";
+import { UserEntity } from "@app/user/common/domain/user-entity";
+import { TokenService } from "@app/user/login/domain/token-service";
 
 @Injectable()
 export class JwtTokenService implements TokenService {

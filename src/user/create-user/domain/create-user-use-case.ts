@@ -4,16 +4,16 @@ import { DefaultError } from "@app/lib/error/default-error";
 import { UUID } from "@app/lib/uuid";
 import { PasswordHasher } from "@app/user/common/domain/password-hasher";
 import { CreateUserRepository } from "@app/user/create-user/domain/create-user-repository";
-import { CreateUserServiceInput } from "@app/user/create-user/domain/create-user-service-input";
+import { CreateUserUseCaseInput } from "@app/user/create-user/domain/ports/create-user-use-case-input";
 
 @Injectable()
-export class CreateUserService {
+export class CreateUserUseCase {
   public constructor(
     private readonly createUserRepository: CreateUserRepository,
     private readonly passwordHasher: PasswordHasher,
   ) {}
 
-  public async execute(input: CreateUserServiceInput): Promise<Either<DefaultError, UUID>> {
+  public async execute(input: CreateUserUseCaseInput): Promise<Either<DefaultError, UUID>> {
     if (await this.createUserRepository.exists(input.email)) {
       return left({
         message: "User already exists",
