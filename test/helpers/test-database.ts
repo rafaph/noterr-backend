@@ -6,7 +6,7 @@ import { UUID } from "@app/lib/uuid";
 import { PrismaService } from "@app/shared/application/prisma-service";
 
 const makeQuery = async (query: string): Promise<void> => {
-  const client = new Client(<string>process.env.DATABASE_URL);
+  const client = new Client(process.env.NOTERR_DATABASE_URL as string);
   await client.connect();
   await client.query(query);
   await client.end();
@@ -25,7 +25,7 @@ const migrate = (databaseUrl: string): Promise<void> => {
     const child = spawn("npx", ["prisma", "migrate", "deploy"], {
       env: {
         ...process.env,
-        DATABASE_URL: databaseUrl,
+        NOTERR_DATABASE_URL: databaseUrl,
       },
       cwd: path.join(__dirname, "..", ".."),
     });
@@ -44,7 +44,7 @@ export class TestDatabase {
   private readonly database = `noterr_${UUID.new().toString().replaceAll("-", "")}`;
 
   private get databaseUrl(): string {
-    const connectionString = new ConnectionString(process.env.DATABASE_URL);
+    const connectionString = new ConnectionString(process.env.NOTERR_DATABASE_URL);
     connectionString.path = [this.database];
 
     return connectionString.toString();

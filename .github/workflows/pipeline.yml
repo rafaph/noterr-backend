@@ -45,7 +45,9 @@ jobs:
       image: node:16
       env:
         npm_config_build_from_source: true
-        DATABASE_URL: postgresql://noterr@postgres:5432/noterr
+        NOTERR_DATABASE_URL: postgresql://noterr@postgres:5432/noterr
+        NOTERR_JWT_SECRET: jwt_secret
+        NOTERR_JWT_EXPIRES_IN: 5m
     services:
       postgres:
         env:

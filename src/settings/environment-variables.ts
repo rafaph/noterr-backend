@@ -1,3 +1,8 @@
+export enum Env {
+  NOTERR_JWT_SECRET = "NOTERR_JWT_SECRET",
+  NOTERR_JWT_EXPIRES_IN = "NOTERR_JWT_EXPIRES_IN",
+}
+
 export enum OptionalEnv {
   NOTERR_PORT = "NOTERR_PORT",
 }
