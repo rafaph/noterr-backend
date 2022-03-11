@@ -1,4 +1,3 @@
-/* istanbul ignore file */
 import { Injectable } from "@nestjs/common";
 import { verify } from "argon2";
 import { PasswordVerifier } from "@app/user/common/domain/password-verifier";
