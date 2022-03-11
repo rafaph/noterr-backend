@@ -96,8 +96,7 @@
       "tsconfig-paths/register",
       "chai/register-expect.js",
       "test/setup.ts"
-    ],
-    "bail": true
+    ]
   },
   "nyc": {
     "extends": "@istanbuljs/nyc-config-typescript",
