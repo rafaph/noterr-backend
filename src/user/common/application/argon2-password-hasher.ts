@@ -1,4 +1,3 @@
-/* istanbul ignore file */
 import { Injectable } from "@nestjs/common";
 import { hash } from "argon2";
 import { PasswordHasher } from "@app/user/common/domain/password-hasher";
