@@ -9,7 +9,7 @@ parallel("PrismaCreateUserRepository", () => {
     await new TestDatabase().run(async (prisma) => {
       const repository = new PrismaCreateUserRepository(prisma);
       const input = {
-        id: new UUID(faker.datatype.uuid()),
+        id: UUID.new(),
         email: faker.internet.email(),
         password: faker.internet.password(),
       };

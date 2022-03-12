@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { HttpStatus, INestApplication } from "@nestjs/common";
 import faker from "faker";
 import parallel from "mocha.parallel";
@@ -6,6 +7,7 @@ import { Interface } from "@app/lib/typescript/interface";
 import { PrismaService } from "@app/shared/application/prisma-service";
 import { CreateUserControllerInput } from "@app/user/create-user/application/ports/create-user-controller-input";
 import { TestApplication } from "@test/helpers/test-application";
+import { makeDatabaseUser } from "@test/user/helpers/factories";
 
 type Body = Interface<CreateUserControllerInput>;
 
@@ -21,7 +23,6 @@ const makeBody = (body: Partial<Body> = {}): Body => {
 
 const endpoint = "/api/v1/users";
 
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 const makeRequest = (app: INestApplication, body: Body) =>
   request(app.getHttpServer()).post(endpoint).set("accept", "application/json").send(body);
 
@@ -56,15 +57,10 @@ parallel("CreateUserController", () => {
 
   it(`POST ${endpoint} ${HttpStatus.UNPROCESSABLE_ENTITY} UNPROCESSABLE_ENTITY if email already is in use`, async () => {
     await new TestApplication().run(async (app) => {
-      const body = makeBody();
       const prisma = app.get(PrismaService);
-      const data = { ...body };
-      delete (data as Partial<Body>).passwordConfirmation;
-      await prisma.user.create({
-        data: {
-          id: faker.datatype.uuid(),
-          ...data,
-        },
+      const user = await makeDatabaseUser(prisma);
+      const body = makeBody({
+        email: user.email,
       });
 
       await makeRequest(app, body).expect(HttpStatus.UNPROCESSABLE_ENTITY);
