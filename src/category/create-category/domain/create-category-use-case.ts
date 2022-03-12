@@ -7,10 +7,10 @@ import { UUID } from "@app/lib/uuid";
 
 @Injectable()
 export class CreateCategoryUseCase {
-  public constructor(private readonly createCategoryRepository: CreateCategoryRepository) {}
+  public constructor(private readonly repository: CreateCategoryRepository) {}
 
   public async execute(input: CreateCategoryUseCaseInput): Promise<Either<DefaultError, UUID>> {
-    if (await this.createCategoryRepository.exists(input.userId, input.title)) {
+    if (await this.repository.exists(input.userId, input.title)) {
       return left({
         message: "Category already exists",
         code: "CATEGORY_ALREADY_EXISTS",
@@ -18,7 +18,7 @@ export class CreateCategoryUseCase {
     }
 
     const id = UUID.new();
-    await this.createCategoryRepository.create({
+    await this.repository.create({
       ...input,
       id,
     });
