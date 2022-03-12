@@ -1,13 +1,18 @@
+import { Argon2PasswordHasherService } from "@app/auth/application/services/argon2-password-hasher-service";
+import { UserData } from "@app/auth/domain/user-data";
 import { PrismaService } from "@app/shared/application/prisma-service";
-import { UserEntity } from "@app/user/common/domain/user-entity";
-import { PrismaCreateUserRepository } from "@app/user/create-user/application/prisma-create-user-repository";
-import { makeCreateUserRepositoryInput } from "@test/user/create-user/helpers/factories";
+import { makeUserData } from "@test/auth/helpers/factories";
 
-export const makeDatabaseUser = async (prisma: PrismaService): Promise<UserEntity> => {
-  const input = await makeCreateUserRepositoryInput();
-  const repository = new PrismaCreateUserRepository(prisma);
+export const makeDatabaseUser = async (prisma: PrismaService, userData: Partial<UserData> = {}): Promise<UserData> => {
+  const user = makeUserData(userData);
 
-  await repository.create(input);
+  await prisma.user.create({
+    data: {
+      id: user.id.toString(),
+      email: user.email,
+      password: await new Argon2PasswordHasherService().hash(user.password),
+    },
+  });
 
-  return new UserEntity(input.id, input.email, input.password);
+  return user;
 };

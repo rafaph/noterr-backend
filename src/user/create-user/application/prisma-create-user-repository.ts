@@ -18,8 +18,10 @@ export class PrismaCreateUserRepository implements CreateUserRepository {
   }
 
   public async exists(email: string): Promise<boolean> {
-    return !!(await this.prisma.user.findUnique({
+    const result = await this.prisma.user.findUnique({
       where: { email },
-    }));
+    });
+
+    return !!result;
   }
 }

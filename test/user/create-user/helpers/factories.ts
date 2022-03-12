@@ -1,10 +1,6 @@
 import faker from "faker";
 import sinon from "sinon";
-import { UUID } from "@app/lib/uuid";
-import { Argon2PasswordHasher } from "@app/user/common/application/argon2-password-hasher";
-import { PasswordHasher } from "@app/user/common/domain/password-hasher";
 import { CreateUserRepository } from "@app/user/create-user/domain/create-user-repository";
-import { CreateUserRepositoryInput } from "@app/user/create-user/domain/ports/create-user-repository-input";
 import { CreateUserUseCaseInput } from "@app/user/create-user/domain/ports/create-user-use-case-input";
 
 export const makeCreateUserRepository = (repository: Partial<CreateUserRepository> = {}): CreateUserRepository => {
@@ -15,13 +11,6 @@ export const makeCreateUserRepository = (repository: Partial<CreateUserRepositor
   };
 };
 
-export const makePasswordHasher = (passwordHasher: Partial<PasswordHasher> = {}): PasswordHasher => {
-  return {
-    hash: sinon.stub().resolves(faker.internet.password()),
-    ...passwordHasher,
-  };
-};
-
 export const makeCreateUserUseCaseInput = (input: Partial<CreateUserUseCaseInput> = {}): CreateUserUseCaseInput => {
   return {
     email: faker.internet.email(),
@@ -29,12 +18,3 @@ export const makeCreateUserUseCaseInput = (input: Partial<CreateUserUseCaseInput
     ...input,
   };
 };
-
-export const makeCreateUserRepositoryInput = async (
-  input: Partial<CreateUserRepositoryInput> = {},
-): Promise<CreateUserRepositoryInput> => ({
-  id: UUID.new(),
-  email: faker.internet.email(),
-  password: await new Argon2PasswordHasher().hash(faker.internet.password()),
-  ...input,
-});
