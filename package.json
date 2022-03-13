@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node -r ./boot-paths.js dist/main",
+    "predev": "rimraf dist",
     "dev": "nest start --debug --watch",
     "test": "mocha",
     "test:watch": "npm run test -- --watch",
@@ -14,7 +15,7 @@
     "postlint": "eslint \"{src,test}/**/*.ts\"",
     "lint:fix": "npm run postlint -- --fix",
     "postlint:fix": "prettier --write .",
-    "prebuild": "rimraf dist",
+    "prebuild": "npm run predev",
     "build": "nest build",
     "prepare": "husky install"
   },
