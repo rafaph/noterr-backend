@@ -1,5 +1,6 @@
 import { Body, Controller, HttpCode, HttpStatus, Post, UnprocessableEntityException } from "@nestjs/common";
 import { ApiBadRequestResponse, ApiCreatedResponse, ApiTags, ApiUnprocessableEntityResponse } from "@nestjs/swagger";
+import { Public } from "@app/auth/application/decorators/public-decorator";
 import { DefaultErrorResponse } from "@app/lib/response/default-error-response";
 import { DefaultValidationResponse } from "@app/lib/response/default-validation-response";
 import { CreateUserControllerInput } from "@app/user/create-user/application/ports/create-user-controller-input";
@@ -11,6 +12,7 @@ import { CreateUserUseCase } from "@app/user/create-user/domain/create-user-use-
 export class CreateUserController {
   public constructor(private readonly useCase: CreateUserUseCase) {}
 
+  @Public()
   @Post()
   @HttpCode(HttpStatus.CREATED)
   @ApiBadRequestResponse({ type: DefaultValidationResponse })

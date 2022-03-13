@@ -1,5 +1,6 @@
 import { Body, Controller, HttpCode, HttpStatus, Post, UnauthorizedException } from "@nestjs/common";
 import { ApiBadRequestResponse, ApiOkResponse, ApiTags, ApiUnauthorizedResponse } from "@nestjs/swagger";
+import { Public } from "@app/auth/application/decorators/public-decorator";
 import { LoginControllerInput } from "@app/auth/application/ports/login-controller-input";
 import { LoginControllerOutput } from "@app/auth/application/ports/login-controller-output";
 import { LoginUseCase } from "@app/auth/domain/use-cases/login-use-case";
@@ -11,6 +12,7 @@ import { DefaultValidationResponse } from "@app/lib/response/default-validation-
 export class LoginController {
   public constructor(private readonly useCase: LoginUseCase) {}
 
+  @Public()
   @Post()
   @HttpCode(HttpStatus.OK)
   @ApiOkResponse({ type: LoginControllerOutput })

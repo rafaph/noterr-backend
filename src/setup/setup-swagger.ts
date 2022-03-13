@@ -8,6 +8,7 @@ export function setupSwagger(app: INestApplication): void {
     .setTitle("Noterr Backend")
     .setDescription("Noterr Backend Documentation")
     .setVersion("1.0")
+    .addBearerAuth({ type: "http", in: "header" })
     .build();
   const swaggerDoc = SwaggerModule.createDocument(app, config);
   const setupHandler = setup(swaggerDoc, {

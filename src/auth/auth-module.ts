@@ -1,4 +1,5 @@
 import { Global, Module } from "@nestjs/common";
+import { APP_GUARD } from "@nestjs/core";
 import { JwtModule } from "@nestjs/jwt";
 import { LoginController } from "@app/auth/application/controllers/login-controller";
 import { AuthGuard } from "@app/auth/application/guards/auth-guard";
@@ -51,8 +52,11 @@ import { JwtModuleInitializer } from "@app/auth/utils/jwt-module-initializer";
       provide: LoginRepository,
       useClass: PrismaLoginRepository,
     },
+    {
+      provide: APP_GUARD,
+      useClass: AuthGuard,
+    },
     IsAuthenticatedUseCase,
-    AuthGuard,
     LoginUseCase,
   ],
   controllers: [LoginController],
@@ -61,6 +65,6 @@ import { JwtModuleInitializer } from "@app/auth/utils/jwt-module-initializer";
       useClass: JwtModuleInitializer,
     }),
   ],
-  exports: [IsAuthenticatedUseCase, AuthGuard, PasswordHasherService],
+  exports: [PasswordHasherService],
 })
 export class AuthModule {}
