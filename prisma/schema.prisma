@@ -25,8 +25,6 @@ model Category {
   notes CategoryNote[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
-  @@unique([userId, title])
 }
 
 model Note {
@@ -38,8 +36,6 @@ model Note {
   categories CategoryNote[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
-  @@unique([userId, title])
 }
 
 model CategoryNote {
