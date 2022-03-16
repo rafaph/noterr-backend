@@ -19,12 +19,10 @@ export class PrismaCreateCategoryRepository implements CreateCategoryRepository 
   }
 
   public async exists(userId: UUID, title: string): Promise<boolean> {
-    const result = await this.prisma.category.findUnique({
+    const result = await this.prisma.category.findFirst({
       where: {
-        userId_title: {
-          userId: userId.toString(),
-          title,
-        },
+        userId: userId.toString(),
+        title,
       },
     });
 
