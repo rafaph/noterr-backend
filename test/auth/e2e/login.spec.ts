@@ -1,5 +1,5 @@
+import faker from "@faker-js/faker";
 import { HttpStatus, INestApplication } from "@nestjs/common";
-import faker from "faker";
 import parallel from "mocha.parallel";
 import request, { Test } from "supertest";
 import { LoginControllerInput } from "@app/auth/application/ports/login-controller-input";

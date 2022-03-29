@@ -1,4 +1,4 @@
-import faker from "faker";
+import faker from "@faker-js/faker";
 import parallel from "mocha.parallel";
 import { UUID } from "@app/lib/uuid";
 import { PrismaCreateUserRepository } from "@app/user/application/repositories/prisma-create-user-repository";

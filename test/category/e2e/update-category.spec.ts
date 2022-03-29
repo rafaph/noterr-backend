@@ -1,5 +1,5 @@
+import faker from "@faker-js/faker";
 import { HttpStatus, INestApplication } from "@nestjs/common";
-import faker from "faker";
 import parallel from "mocha.parallel";
 import request, { Test } from "supertest";
 import { UserEntity } from "@app/auth/domain/entities/user-entity";

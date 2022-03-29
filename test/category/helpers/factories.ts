@@ -1,4 +1,4 @@
-import faker from "faker";
+import faker from "@faker-js/faker";
 import sinon from "sinon";
 import { CategoryEntity } from "@app/category/domain/entities/category-entity";
 import { CreateCategoryUseCaseInput } from "@app/category/domain/ports/create-category-use-case-input";

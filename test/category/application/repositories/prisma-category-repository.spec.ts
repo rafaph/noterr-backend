@@ -1,4 +1,4 @@
-import faker from "faker";
+import faker from "@faker-js/faker";
 import parallel from "mocha.parallel";
 import { PrismaCategoryRepository } from "@app/category/application/repositories/prisma-category-repository";
 import { CategoryEntity } from "@app/category/domain/entities/category-entity";

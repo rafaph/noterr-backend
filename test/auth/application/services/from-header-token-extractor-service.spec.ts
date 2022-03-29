@@ -1,4 +1,4 @@
-import faker from "faker";
+import faker from "@faker-js/faker";
 import { FromHeaderTokenExtractorService } from "@app/auth/application/services/from-header-token-extractor-service";
 
 interface Sut {

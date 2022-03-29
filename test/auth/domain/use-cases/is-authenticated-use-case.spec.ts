@@ -1,4 +1,4 @@
-import faker from "faker";
+import faker from "@faker-js/faker";
 import sinon from "sinon";
 import { IsAuthenticatedRepository } from "@app/auth/domain/repositories/is-authenticated-repository";
 import { TokenExtractorService } from "@app/auth/domain/services/token-extractor-service";

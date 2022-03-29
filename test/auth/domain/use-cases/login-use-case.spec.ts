@@ -1,4 +1,4 @@
-import faker from "faker";
+import faker from "@faker-js/faker";
 import sinon from "sinon";
 import { LoginRepository } from "@app/auth/domain/repositories/login-repository";
 import { PasswordVerifierService } from "@app/auth/domain/services/password-verifier-service";

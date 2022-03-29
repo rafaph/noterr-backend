@@ -1,4 +1,4 @@
-import faker from "faker";
+import faker from "@faker-js/faker";
 import sinon from "sinon";
 import { Argon2PasswordHasherService } from "@app/auth/application/services/argon2-password-hasher-service";
 import { UserEntity } from "@app/auth/domain/entities/user-entity";

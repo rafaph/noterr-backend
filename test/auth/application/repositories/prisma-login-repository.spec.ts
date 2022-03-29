@@ -1,4 +1,4 @@
-import faker from "faker";
+import faker from "@faker-js/faker";
 import parallel from "mocha.parallel";
 import { PrismaLoginRepository } from "@app/auth/application/repositories/prisma-login-repository";
 import { TestDatabase } from "@test/helpers/test-database";

@@ -1,4 +1,4 @@
-import faker from "faker";
+import faker from "@faker-js/faker";
 import sinon from "sinon";
 import { UserEntity } from "@app/auth/domain/entities/user-entity";
 import { LoginUseCaseInput } from "@app/auth/domain/ports/login-use-case-input";

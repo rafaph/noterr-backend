@@ -1,4 +1,4 @@
-import faker from "faker";
+import faker from "@faker-js/faker";
 import { v1 } from "uuid";
 import { UUID } from "@app/lib/uuid";
 

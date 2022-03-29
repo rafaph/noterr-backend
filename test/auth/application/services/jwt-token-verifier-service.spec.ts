@@ -1,5 +1,5 @@
+import faker from "@faker-js/faker";
 import { JwtService } from "@nestjs/jwt";
-import faker from "faker";
 import sinon from "sinon";
 import { JwtTokenVerifierService } from "@app/auth/application/services/jwt-token-verifier-service";
 import { makeTokenPayload } from "@test/auth/helpers/factories";
