@@ -3,9 +3,9 @@ import { ApiBadRequestResponse, ApiCreatedResponse, ApiTags, ApiUnprocessableEnt
 import { Public } from "@app/auth/application/decorators/public-decorator";
 import { DefaultErrorResponse } from "@app/lib/response/default-error-response";
 import { DefaultValidationResponse } from "@app/lib/response/default-validation-response";
-import { CreateUserControllerInput } from "@app/user/create-user/application/ports/create-user-controller-input";
-import { CreateUserControllerOutput } from "@app/user/create-user/application/ports/create-user-controller-output";
-import { CreateUserUseCase } from "@app/user/create-user/domain/create-user-use-case";
+import { CreateUserControllerInput } from "@app/user/application/ports/create-user-controller-input";
+import { CreateUserControllerOutput } from "@app/user/application/ports/create-user-controller-output";
+import { CreateUserUseCase } from "@app/user/domain/use-cases/create-user-use-case";
 
 @Controller("api/v1/users")
 @ApiTags("Users")

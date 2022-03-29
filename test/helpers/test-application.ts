@@ -1,8 +1,8 @@
 import { INestApplication } from "@nestjs/common";
 import { Test, TestingModuleBuilder } from "@nestjs/testing";
-import { AppFactory } from "@app/app-factory";
-import { AppModule } from "@app/app-module";
-import { PrismaService } from "@app/shared/application/prisma-service";
+import { AppFactory } from "@app/setup/app-factory";
+import { AppModule } from "@app/setup/app-module";
+import { PrismaService } from "@app/shared/application/services/prisma-service";
 import { TestDatabase } from "@test/helpers/test-database";
 
 export class TestApplication {

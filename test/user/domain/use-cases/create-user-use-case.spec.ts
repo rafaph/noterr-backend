@@ -1,10 +1,10 @@
 import sinon from "sinon";
 import { PasswordHasherService } from "@app/auth/domain/services/password-hasher-service";
 import { UUID } from "@app/lib/uuid";
-import { CreateUserRepository } from "@app/user/create-user/domain/create-user-repository";
-import { CreateUserUseCase } from "@app/user/create-user/domain/create-user-use-case";
+import { CreateUserRepository } from "@app/user/domain/repositories/create-user-repository";
+import { CreateUserUseCase } from "@app/user/domain/use-cases/create-user-use-case";
 import { makePasswordHasherService } from "@test/auth/helpers/factories";
-import { makeCreateUserRepository, makeCreateUserUseCaseInput } from "@test/user/create-user/helpers/factories";
+import { makeCreateUserRepository, makeCreateUserUseCaseInput } from "@test/user/helpers/factories";
 
 interface Sut {
   readonly useCase: CreateUserUseCase;

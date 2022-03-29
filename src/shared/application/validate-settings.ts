@@ -1,11 +1,11 @@
 /* istanbul ignore file */
 
-import { plainToClass } from "class-transformer";
+import { plainToInstance } from "class-transformer";
 import { validate } from "class-validator";
-import { ApplicationSettings } from "@app/settings/application-settings";
+import { ApplicationSettings } from "@app/shared/application/application-settings";
 
 export const validateSettings = async (): Promise<void> => {
-  const settings = plainToClass(ApplicationSettings, new ApplicationSettings(), {
+  const settings = plainToInstance(ApplicationSettings, new ApplicationSettings(), {
     enableImplicitConversion: true,
   });
 

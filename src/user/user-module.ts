@@ -1,7 +1,17 @@
 import { Module } from "@nestjs/common";
-import { CreateUserModule } from "@app/user/create-user/create-user-module";
+import { CreateUserController } from "@app/user/application/controllers/create-user-controller";
+import { PrismaCreateUserRepository } from "@app/user/application/repositories/prisma-create-user-repository";
+import { CreateUserRepository } from "@app/user/domain/repositories/create-user-repository";
+import { CreateUserUseCase } from "@app/user/domain/use-cases/create-user-use-case";
 
 @Module({
-  imports: [CreateUserModule],
+  providers: [
+    {
+      provide: CreateUserRepository,
+      useClass: PrismaCreateUserRepository,
+    },
+    CreateUserUseCase,
+  ],
+  controllers: [CreateUserController],
 })
 export class UserModule {}

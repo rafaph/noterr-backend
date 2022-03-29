@@ -3,7 +3,7 @@ import path from "path";
 import { ConnectionString } from "connection-string";
 import { Client } from "pg";
 import { UUID } from "@app/lib/uuid";
-import { PrismaService } from "@app/shared/application/prisma-service";
+import { PrismaService } from "@app/shared/application/services/prisma-service";
 
 const makeQuery = async (query: string): Promise<void> => {
   const client = new Client(process.env.NOTERR_DATABASE_URL as string);

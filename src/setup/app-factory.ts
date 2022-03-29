@@ -1,11 +1,11 @@
 /* istanbul ignore file */
 import { INestApplication, NestApplicationOptions, ValidationPipe } from "@nestjs/common";
 import { NestFactory } from "@nestjs/core";
-import { AppModule } from "@app/app-module";
 import { exceptionFactory } from "@app/lib/exception-factory";
-import { validateSettings } from "@app/settings/validate-settings";
+import { AppModule } from "@app/setup/app-module";
 import { setupSwagger } from "@app/setup/setup-swagger";
-import { PrismaService } from "@app/shared/application/prisma-service";
+import { PrismaService } from "@app/shared/application/services/prisma-service";
+import { validateSettings } from "@app/shared/application/validate-settings";
 
 export class AppFactory {
   public static async setup(app: INestApplication): Promise<void> {

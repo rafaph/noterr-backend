@@ -1,6 +1,6 @@
 /* istanbul ignore file */
-import { AppFactory } from "@app/app-factory";
-import { OptionalEnv } from "@app/settings/environment-variables";
+import { AppFactory } from "@app/setup/app-factory";
+import { OptionalEnv } from "@app/shared/domain/environment-variables";
 
 async function bootstrap(): Promise<void> {
   const app = await AppFactory.create();
