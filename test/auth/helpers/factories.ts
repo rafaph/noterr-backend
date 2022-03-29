@@ -1,6 +1,8 @@
 import faker from "faker";
 import sinon from "sinon";
+import { UserEntity } from "@app/auth/domain/entities/user-entity";
 import { LoginUseCaseInput } from "@app/auth/domain/ports/login-use-case-input";
+import { TokenPayload } from "@app/auth/domain/ports/token-payload";
 import { IsAuthenticatedRepository } from "@app/auth/domain/repositories/is-authenticated-repository";
 import { LoginRepository } from "@app/auth/domain/repositories/login-repository";
 import { PasswordHasherService } from "@app/auth/domain/services/password-hasher-service";
@@ -8,9 +10,7 @@ import { PasswordVerifierService } from "@app/auth/domain/services/password-veri
 import { TokenExtractorService } from "@app/auth/domain/services/token-extractor-service";
 import { TokenSignerService } from "@app/auth/domain/services/token-signer-service";
 import { TokenVerifierService } from "@app/auth/domain/services/token-verifier-service";
-import { TokenPayload } from "@app/auth/domain/token-payload";
-import { UserData } from "@app/auth/domain/user-data";
-import { right } from "@app/lib/either";
+import { right } from "@app/lib/ts/either";
 import { UUID } from "@app/lib/uuid";
 
 export const makePasswordHasherService = (
@@ -56,15 +56,19 @@ export const makeIsAuthenticatedRepository = (
   ...repository,
 });
 
-export const makeUserData = (userData: Partial<UserData> = {}): UserData => ({
-  id: UUID.new(),
-  email: faker.internet.email(),
-  password: faker.internet.password(),
-  ...userData,
-});
+export const makeUserEntity = (userEntity: Partial<UserEntity> = {}): UserEntity => {
+  const data = {
+    id: UUID.new(),
+    email: faker.internet.email(),
+    password: faker.internet.password(),
+    ...userEntity,
+  };
+
+  return new UserEntity(data.id, data.email, data.password);
+};
 
 export const makeLoginRepository = (repository: Partial<LoginRepository> = {}): LoginRepository => ({
-  findByEmail: sinon.stub().resolves(makeUserData()),
+  findByEmail: sinon.stub().resolves(makeUserEntity()),
   ...repository,
 });
 

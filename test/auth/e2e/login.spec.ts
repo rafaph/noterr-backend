@@ -1,11 +1,10 @@
-/* eslint @typescript-eslint/explicit-function-return-type: "off" */
 import { HttpStatus, INestApplication } from "@nestjs/common";
 import faker from "faker";
 import parallel from "mocha.parallel";
-import request from "supertest";
+import request, { Test } from "supertest";
 import { LoginControllerInput } from "@app/auth/application/ports/login-controller-input";
-import { Interface } from "@app/lib/typescript/interface";
-import { PrismaService } from "@app/shared/application/prisma-service";
+import { Interface } from "@app/lib/ts/interface";
+import { PrismaService } from "@app/shared/application/services/prisma-service";
 import { TestApplication } from "@test/helpers/test-application";
 import { makeDatabaseUser } from "@test/user/helpers/factories";
 
@@ -19,7 +18,7 @@ const makeBody = (body: Partial<Body> = {}): Body => ({
 
 const endpoint = "/api/v1/auth/login";
 
-const makeRequest = (app: INestApplication, body: Body) =>
+const makeRequest = (app: INestApplication, body: Body): Test =>
   request(app.getHttpServer()).post(endpoint).set("accept", "application/json").send(body);
 
 parallel("LoginController", () => {

@@ -1,10 +1,11 @@
 import { Injectable } from "@nestjs/common";
+import { InvalidCredentialsError } from "@app/auth/domain/errors";
 import { LoginUseCaseInput } from "@app/auth/domain/ports/login-use-case-input";
 import { LoginRepository } from "@app/auth/domain/repositories/login-repository";
 import { PasswordVerifierService } from "@app/auth/domain/services/password-verifier-service";
 import { TokenSignerService } from "@app/auth/domain/services/token-signer-service";
-import { Either, left, right } from "@app/lib/either";
 import { DefaultError } from "@app/lib/error/default-error";
+import { Either, left, right } from "@app/lib/ts/either";
 
 @Injectable()
 export class LoginUseCase {
@@ -18,10 +19,7 @@ export class LoginUseCase {
     const user = await this.repository.findByEmail(input.email);
 
     if (!user || !(await this.passwordVerifier.verify(user.password, input.password))) {
-      return left({
-        message: "Invalid credentials",
-        code: "INVALID_CREDENTIALS",
-      });
+      return left(InvalidCredentialsError);
     }
 
     const token = await this.tokenSigner.sign({

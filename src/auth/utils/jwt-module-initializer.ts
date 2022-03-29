@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { JwtModuleOptions, JwtOptionsFactory } from "@nestjs/jwt";
-import { ApplicationSettings } from "@app/settings/application-settings";
+import { ApplicationSettings } from "@app/shared/application/application-settings";
 
 @Injectable()
 export class JwtModuleInitializer implements JwtOptionsFactory {

@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
+import { TokenPayload } from "@app/auth/domain/ports/token-payload";
 import { TokenSignerService } from "@app/auth/domain/services/token-signer-service";
-import { TokenPayload } from "@app/auth/domain/token-payload";
 
 @Injectable()
 export class JwtTokenSignerService implements TokenSignerService {

@@ -1,5 +1,5 @@
 import { IsNotEmpty, IsString } from "class-validator";
-import { Env } from "@app/settings/environment-variables";
+import { Env } from "@app/shared/domain/environment-variables";
 
 export class AuthSettings {
   @IsNotEmpty()

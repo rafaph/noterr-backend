@@ -1,5 +1,5 @@
-import { UserData } from "@app/auth/domain/user-data";
+import { UserEntity } from "@app/auth/domain/entities/user-entity";
 
 export abstract class LoginRepository {
-  public abstract findByEmail(email: string): Promise<UserData | null>;
+  public abstract findByEmail(email: string): Promise<UserEntity | null>;
 }

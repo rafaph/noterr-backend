@@ -1,9 +1,10 @@
 import { Injectable } from "@nestjs/common";
+import { InvalidUserIdError } from "@app/auth/domain/errors";
 import { IsAuthenticatedRepository } from "@app/auth/domain/repositories/is-authenticated-repository";
 import { TokenExtractorService } from "@app/auth/domain/services/token-extractor-service";
 import { TokenVerifierService } from "@app/auth/domain/services/token-verifier-service";
-import { Either, left, right } from "@app/lib/either";
 import { DefaultError } from "@app/lib/error/default-error";
+import { Either, left, right } from "@app/lib/ts/either";
 import { UUID } from "@app/lib/uuid";
 
 @Injectable()
@@ -31,10 +32,7 @@ export class IsAuthenticatedUseCase {
     const resultRepository = await this.repository.exists(userId);
 
     if (!resultRepository) {
-      return left({
-        message: "Invalid User Id",
-        code: "INVALID_USER_ID",
-      });
+      return left(InvalidUserIdError);
     }
 
     return right(userId);

@@ -1,6 +1,7 @@
 import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from "@nestjs/common";
 import { Reflector } from "@nestjs/core";
 import { IS_PUBLIC_KEY } from "@app/auth/application/decorators/public-decorator";
+import { UnauthorizedError } from "@app/auth/domain/errors";
 import { IsAuthenticatedUseCase } from "@app/auth/domain/use-cases/is-authenticated-use-case";
 
 @Injectable()
@@ -20,10 +21,7 @@ export class AuthGuard implements CanActivate {
     const result = await this.useCase.execute(request.headers as Record<string, string>);
 
     if (result.isLeft()) {
-      throw new UnauthorizedException({
-        message: "Unauthorized",
-        code: "UNAUTHORIZED",
-      });
+      throw new UnauthorizedException(UnauthorizedError);
     }
 
     request.userId = result.value;

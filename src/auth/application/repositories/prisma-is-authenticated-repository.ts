@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { IsAuthenticatedRepository } from "@app/auth/domain/repositories/is-authenticated-repository";
 import { UUID } from "@app/lib/uuid";
-import { PrismaService } from "@app/shared/application/prisma-service";
+import { PrismaService } from "@app/shared/application/services/prisma-service";
 
 @Injectable()
 export class PrismaIsAuthenticatedRepository implements IsAuthenticatedRepository {
