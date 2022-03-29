@@ -87,7 +87,7 @@
     "npm": "8.x"
   },
   "mocha": {
-    "timeout": 15000,
+    "timeout": 30000,
     "extension": [
       "ts"
     ],
