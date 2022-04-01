@@ -1,48 +1,60 @@
 SHELL=/bin/bash
-UID=`id -u`
-GID=`id -g`
-DOWN=$(MAKE) down || $(MAKE) down
+
+export HOST_UID=$(shell id -u)
+export HOST_GID=$(shell id -g)
+
+define down
+	$(MAKE) down || $(MAKE) down
+endef
+
+define compose
+	docker-compose $(1)
+endef
+
+define run
+	$(call compose,run --service-ports --rm server $(1) && $(call down))
+endef
 
 .PHONY: down
 down:
-	docker-compose down --remove-orphans
+	$(call compose,down --remove-orphans)
 
 .PHONY: up
 up:
-	UID=$(UID) GID=$(GID) docker-compose up --build && $(DOWN)
+	$(call compose,up --build && $(call down))
 
 .PHONY: shell
 shell:
-	UID=$(UID) GID=$(GID) docker-compose run --service-ports --rm server sh && $(DOWN)
+	$(call run,sh)
 
 .PHONY: test
 test:
-	UID=$(UID) GID=$(GID) docker-compose run --service-ports --rm server npm run test && $(DOWN)
+	$(call run,npm test)
 
 .PHONY: test-watch
 test-watch:
-	UID=$(UID) GID=$(GID) docker-compose run --service-ports --rm server npm run test:watch && $(DOWN)
+	$(call run,npm run test:watch)
 
 .PHONY: test-cov
 test-cov:
-	UID=$(UID) GID=$(GID) docker-compose run --service-ports --rm server npm run test:cov && $(DOWN)
+	$(call run,npm run test:cov)
 
 .PHONY: lint
 lint:
-	UID=$(UID) GID=$(GID) docker-compose run --service-ports --rm server npm run lint && $(DOWN)
+	$(call run,npm run lint)
 
 .PHONY: lint-fix
 lint-fix:
-	UID=$(UID) GID=$(GID) docker-compose run --service-ports --rm server npm run lint:fix && $(DOWN)
+	$(call run,npm run lint:fix)
 
 .PHONY: build
 build:
-	UID=$(UID) GID=$(GID) docker-compose run --service-ports --rm server npm run build && $(DOWN)
+	$(call run,npm run build)
 
 .PHONY: build-watch
 build-watch:
-	UID=$(UID) GID=$(GID) docker-compose run --service-ports --rm server npm run build:watch && $(DOWN)
+	$(call run,npm run build:watch)
 
 .PHONY: check-updates
 check-updates:
-	UID=$(UID) GID=$(GID) docker-compose run --service-ports --rm server npx --quiet --yes npm-check-updates && $(DOWN)
+	$(call run,npx --quiet --yes npm-check-updates)

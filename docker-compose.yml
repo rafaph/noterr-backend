@@ -5,8 +5,8 @@ services:
     build:
       context: docker/development
       args:
-        UID: $UID
-        GID: $GID
+        UID: $HOST_UID
+        GID: $HOST_GID
     hostname: server
     command: ["npm", "run", "dev"]
     ports:
