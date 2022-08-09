@@ -8,14 +8,14 @@
 make up
 ```
 
-2Install dependencies:
+2. Install dependencies:
 
 ```
 make shell
 npm i
 ```
 
-3. Run a any desired npm script:
+3. Run an any desired npm script:
 
 ```
 npm run start
